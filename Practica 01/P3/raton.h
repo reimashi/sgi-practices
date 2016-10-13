@@ -10,7 +10,8 @@ int VentanaAncho = 500, VentanaAlto = 500; /* Tamanyo de la ventana */
 int VentanaX = 100, VentanaY = 100; /* Posicion de la ventana */
 int Pulsaciones; /* Numero de pulsaciones del boton izquierdo del raton */
 int InicioX, InicioY; /* Coordenadas del punto inicial */
-bool InicioActivo = false; 
+bool InicioActivo = false;
+bool DibujarCuadrado = false;
 int FinX, FinY; /* Coordenadas del punto final */
 
 /* Abre una ventana OpenGL */

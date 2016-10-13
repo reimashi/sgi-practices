@@ -10,10 +10,21 @@
 void Dibuja(void)
 {
 	/* Dibuja un segmento de linea entre el punto incial y el final */
-	glBegin (GL_LINES);
-		glVertex2i (InicioX, VentanaAlto-InicioY);
-		glVertex2i (FinX, VentanaAlto-FinY);
-	glEnd ();
+	if (DibujarCuadrado) {
+		/* Crea un poligono 2D (triangulo) */
+		glBegin(GL_POLYGON);
+		glVertex2f(InicioX, VentanaAlto - InicioY);
+		glVertex2f(FinX, VentanaAlto - InicioY);
+		glVertex2f(FinX, VentanaAlto - FinY);
+		glVertex2f(InicioX, VentanaAlto - FinY);
+		glEnd();
+	}
+	else {
+		glBegin(GL_LINES);
+		glVertex2i(InicioX, VentanaAlto - InicioY);
+		glVertex2i(FinX, VentanaAlto - FinY);
+		glEnd();
+	}
 
 	/* Se asegura de que se ejecutan todas las ordenes */
 	glFlush ();
@@ -110,6 +121,11 @@ void TecladoCallback (unsigned char tecla, int x, int y)
 			glClear(GL_COLOR_BUFFER_BIT);
 			glFlush();
 			break;
+
+		case 's':
+		case 'S':
+			DibujarCuadrado = !DibujarCuadrado;
+			break;
 	}
 }
 
@@ -185,6 +201,7 @@ int main(int numArgumentos, char ** listaArgumentos)
 	/* Crea la ventana de la aplicaci¢n */
 	AbreVentana (numArgumentos, listaArgumentos);
 	IniciaFuncionesCallback ();
+	glutSetWindowTitle("Practica 1.3 ('s' para cambiar entre linea y cuadrado)");
 
 	/* Establece el bucle principal de control de OpenGL */
 	glutMainLoop();
