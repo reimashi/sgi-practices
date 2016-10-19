@@ -9,7 +9,7 @@
 #include <gl/glut.h>
 #include <stdio.h>
 #include "examinar.h"
-//#include "glig.h"
+#include "glig.h"
 
 
 /******************************************************************************************/
@@ -132,7 +132,7 @@ void Dibuja (void)
     glRotated (-alfa, 0.0,1.0,0.0);
 
 	/* Objetos */
-	glutWireTeapot (1.0);
+	igCreateQuadricObject(20, 20, 2,1,1, 1, 1);
 
 	glFlush();
 }

@@ -143,9 +143,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="examinar.c" />
+    <ClCompile Include="glig.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="examinar.h" />
+    <ClInclude Include="glig.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
