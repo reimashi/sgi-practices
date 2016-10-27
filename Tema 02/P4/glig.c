@@ -107,44 +107,101 @@ float zSuperQuadric(float u, float v, float R, float s1, float s2)
 // Crea la esfera haciendo lonchas
 void igCreateQuadricObject(int pu, int pv, float uMax, float vMax, float R, float s1, float s2)
 {
+
 	float u, v, inc_u, inc_v;
 	float x, y, z;
-	int   i;
+	int i, j;
 
 	v = 0.0f;
 	u = 0.0f;
+
 	inc_u = uMax / pu;
 	inc_v = vMax / pv;
 
-	for (int j = 0; j < pu; j++) {
+	for (j = 0; j < pv; j++) {
 		glBegin(GL_LINE_LOOP);
-		v = inc_u * j;
-		for (i = 0; i < pu; i++)
+
+		u = 0.0f;
+
+		for (i = 0; i <= pu; i++)
 		{
 			x = xSuperQuadric(u, v, R, s1, s2);
 			y = ySuperQuadric(u, v, R, s1, s2);
 			z = zSuperQuadric(u, v, R, s1, s2);
+
 			glVertex3f(x, y, z);
 			u = u + inc_u;
 		}
+
 		glEnd();
+		v = v + inc_v;
 	}
-	
+
 	v = 0.0f;
 	u = 0.0f;
 
-	for (i = 0; i < pu; i++)
-	{
+	for (i = 0; i < pu; i++) {
 		glBegin(GL_LINE_STRIP);
-		for (int j = 0; j < pv*2; j++) {
-		
+		v = 0.0f;
+		for (j = 0; j <= pv; j++) {
 			x = xSuperQuadric(u, v, R, s1, s2);
 			y = ySuperQuadric(u, v, R, s1, s2);
 			z = zSuperQuadric(u, v, R, s1, s2);
+
 			glVertex3f(x, y, z);
 			v = v + inc_v;
 		}
 		u = u + inc_u;
 		glEnd();
 	}
+}
+
+void igWireSphere(int pu, int pv) {
+	igCreateQuadricObject(pu, pv, 1.0, 1.0, 1, 1, 1);
+}
+
+void igWireRulo(int pu, int pv) {
+	igCreateQuadricObject(pu, pv, 1.0, 1.0, 1, 0.5, 1);
+}
+
+void igWireDado(int pu, int pv) {
+	igCreateQuadricObject(pu, pv, 1.0, 1.0, 1, 0.5, 0.5);
+}
+
+void igWireSemiSphere(int pu, int pv) {
+	igCreateQuadricObject(pu, pv, 1.0, 0.5, 1, 1, 1);
+}
+
+void igWireCubo(void) { igWireCuboSize(1.0); }
+
+void igWireCuboSize(float size) {
+	glBegin(GL_LINE_LOOP);
+
+	float l = size / 2;
+
+	//aristas traseras
+	glVertex3f(-l, -l, -l);
+	glVertex3f(l, -l, -l);
+	glVertex3f(l, l, -l);
+	glVertex3f(-l, l, -l);
+	glVertex3f(-l, -l, -l);
+
+	//parte delantera
+	glVertex3f(-l, -l, l);
+	glVertex3f(-l, l, l);
+	glVertex3f(l, l, l);
+	glVertex3f(l, -l, l);
+	glVertex3f(-l, -l, l);
+
+	//lado izquierdo
+	glVertex3f(-l, -l, -l);
+	glVertex3f(-l, -l, l);
+	glVertex3f(-l, l, l);
+	glVertex3f(-l, l, -l);
+	glVertex3f(l, l, -l);
+	glVertex3f(l, l, l);
+	glVertex3f(l, -l, l);
+	glVertex3f(l, -l, -l);
+
+	glEnd();
 }

@@ -132,7 +132,7 @@ void Dibuja (void)
     glRotated (-alfa, 0.0,1.0,0.0);
 
 	/* Objetos */
-	igCreateQuadricObject(20, 20, 2,1,1, 1, 1);
+	igWireRulo(20, 20);
 
 	glFlush();
 }
