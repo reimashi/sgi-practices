@@ -8,8 +8,10 @@
 /***************** INCLUDES DE LAS LIBRERIAS NECESARIAS ******************/
 #include <gl/glut.h>
 #include <stdio.h>
+#include <math.h>
 #include "examinar.h"
 #include "glig.h"
+#include "modelado.h"
 
 
 /******************************************************************************************/
@@ -26,7 +28,8 @@ void TamanyoVentana (GLsizei ancho, GLsizei alto)
     /* Definicion de la vista */
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    glOrtho(-2.0, 2.0, -2.0*(GLfloat)alto/(GLfloat)ancho, 2.0*(GLdouble)alto/(GLfloat)ancho, -2.0, 2.0);
+    //glOrtho(-10.0, 10.0, -10.0*(GLfloat)alto/(GLfloat)ancho, 10.0*(GLdouble)alto/(GLfloat)ancho, -20.0, 20.0);
+	gluPerspective (60.0, (GLdouble)alto/(GLdouble)ancho, 1.0, 50.0);
 }
 
 /******************************************************************************************/
@@ -64,6 +67,21 @@ void Teclado (unsigned char tecla, int x, int y)
 		case 27 : /* Codigo de la tecla de Escape */
 			exit (0);
 			break;
+
+		case 'w' :
+			modo = WALK;
+			printf ("Modo = WALK      \r");
+			break;
+
+		case 'e' :
+			modo = EXAMINAR;
+			printf ("Modo = EXAMINAR    \r");
+			break;
+
+		case 'f' :
+			modo = FLY;
+			printf ("Modo = FLY      \r");
+			break;
 	}
 }
 
@@ -79,22 +97,22 @@ void TecladoAmpliado (int tecla, int x, int y)
 {
 	switch (tecla)
 	{
-		case GLUT_KEY_UP : /* Pulsacion cursor arriba del teclado ampliado */
-			beta = beta + 15.0;
+		case GLUT_KEY_UP : // Pulsacion cursor arriba del teclado ampliado
+			beta = beta + 1.50;
 			if (beta > 360.0) beta = beta - 360.0;
 			break;
 
-		case GLUT_KEY_DOWN : /* Pulsacion cursor abajo del teclado ampliado */
-			beta = beta - 15.0;
+		case GLUT_KEY_DOWN : // Pulsacion cursor abajo del teclado ampliado
+			beta = beta - 1.50;
 			if (beta < 0.0) beta = beta + 360.0;
 			break;
 
-		case GLUT_KEY_RIGHT : /* Pulsacion cursor derecha del teclado ampliado */
+		case GLUT_KEY_RIGHT : // Pulsacion cursor derecha del teclado ampliado
 			alfa = alfa + 15.0;
 			if (alfa > 360.0) alfa = alfa - 360.0;
 			break;
 
-		case GLUT_KEY_LEFT : /* Pulsacion cursor izquierda del teclado ampliado */
+		case GLUT_KEY_LEFT : // Pulsacion cursor izquierda del teclado ampliado
 			alfa = alfa - 15.0;
 			if (alfa < 0.0) alfa = alfa + 360.0;
 			break;
@@ -129,10 +147,12 @@ void Dibuja (void)
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 	glRotated (beta, 1.0,0.0,0.0);
-    glRotated (-alfa, 0.0,1.0,0.0);
+    glRotated (alfa, 0.0,1.0,0.0);
 
-	/* Objetos */
-	igWireRulo(50, 50);
+	//gluLookAt (ox, oy, oz, ix, iy, iz, 0, 1, 0);
+
+	/* Llamadas a las display lists */
+	DibujaEscena ();
 
 	glFlush();
 }
@@ -152,6 +172,11 @@ int main(int numArgumentos, char ** listaArgumentos)
 	/* Rutinas para el control de eventos */
     IniciaFuncionesCallback ();
 
+	/* Crea las display list de cada cuadrica */
+	IniciaDisplayLists ();
+
+	printf ("Modo = WALK\r");
+	
 	/* A la espera de eventos.... */
 	glutMainLoop();
 

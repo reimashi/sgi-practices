@@ -10,6 +10,7 @@
 #include <stdio.h>
 #include "examinar.h"
 #include "glig.h"
+#include "modelado.h"
 
 
 /******************************************************************************************/
@@ -131,8 +132,15 @@ void Dibuja (void)
 	glRotated (beta, 1.0,0.0,0.0);
     glRotated (-alfa, 0.0,1.0,0.0);
 
-	/* Objetos */
-	igWireRulo(50, 50);
+	/* Llamadas a las display lists */
+	glCallList(stonehenge);
+	
+	/* Descomentar para dibujar los abetos
+	glColor3f(0, 1, 0);
+	glCallList(abeto);
+
+	glColor3f(1, 0, 0);
+	glCallList(abetopush); */
 
 	glFlush();
 }
@@ -152,6 +160,9 @@ int main(int numArgumentos, char ** listaArgumentos)
 	/* Rutinas para el control de eventos */
     IniciaFuncionesCallback ();
 
+	/* Crea las display list de cada cuadrica */
+	IniciaDisplayLists ();
+	
 	/* A la espera de eventos.... */
 	glutMainLoop();
 

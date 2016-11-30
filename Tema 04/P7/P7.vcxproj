@@ -19,9 +19,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{8B037D1A-E91C-42B4-BA71-477AB15BF466}</ProjectGuid>
+    <ProjectGuid>{724E7EA9-B592-421A-B3DA-211F79548189}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>P5</RootNamespace>
+    <RootNamespace>P7</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -142,12 +142,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="examinar.c" />
-    <ClCompile Include="glig.c" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="examinar.h" />
-    <ClInclude Include="glig.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

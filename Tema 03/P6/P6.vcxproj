@@ -19,9 +19,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{8B037D1A-E91C-42B4-BA71-477AB15BF466}</ProjectGuid>
+    <ProjectGuid>{FACBAFBD-CC67-47D6-AC16-1CA71C4EB01C}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>P5</RootNamespace>
+    <RootNamespace>P6</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -144,10 +144,12 @@
   <ItemGroup>
     <ClCompile Include="examinar.c" />
     <ClCompile Include="glig.c" />
+    <ClCompile Include="modelado.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="examinar.h" />
     <ClInclude Include="glig.h" />
+    <ClInclude Include="modelado.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

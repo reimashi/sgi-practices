@@ -132,9 +132,20 @@ void Dibuja (void)
     glRotated (-alfa, 0.0,1.0,0.0);
 
 	/* Objetos */
-	igWireRulo(50, 50);
+	glCallList(cuadrica);
 
 	glFlush();
+}
+
+void IniciaCuadricas(void)
+{
+	cuadrica = glGenLists(1);
+	if (cuadrica != 0) /* Cero no es un identificador valido para una display list */
+	{
+		glNewList(cuadrica, GL_COMPILE);
+		igCreateQuadricObject(50, 50, 1.0, 1.0, 1, 1, 1);
+		glEndList();
+	}
 }
 
 
