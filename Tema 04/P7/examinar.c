@@ -29,6 +29,8 @@ void TamanyoVentana (GLsizei ancho, GLsizei alto)
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     //glOrtho(-10.0, 10.0, -10.0*(GLfloat)alto/(GLfloat)ancho, 10.0*(GLdouble)alto/(GLfloat)ancho, -20.0, 20.0);
+
+	// Apartado a // 
 	gluPerspective (60.0, (GLdouble)alto/(GLdouble)ancho, 1.0, 50.0);
 }
 
@@ -60,8 +62,16 @@ void AbreVentana (int numeroArgumentos, char ** listaArgumentos)
 /*             int y --> Coordenada y del cursor en el momento de pulsar la tecla         */
 /* Salida: Ninguna                                                                        */
 /******************************************************************************************/
+int verInstrucciones = 0;
 void Teclado (unsigned char tecla, int x, int y)
 {
+	if (!verInstrucciones) {
+		printf("(w, e, f) => Cambiar modo\n");
+		printf("Flechas <- || -> => Mover camara\n");
+		printf("Flechas  ^ || v  => Caminar\n");
+		verInstrucciones = 1;
+	}
+
 	switch (tecla)
 	{
 		case 27 : /* Codigo de la tecla de Escape */
@@ -76,6 +86,7 @@ void Teclado (unsigned char tecla, int x, int y)
 		case 'e' :
 			modo = EXAMINAR;
 			printf ("Modo = EXAMINAR    \r");
+			beta = 0;
 			break;
 
 		case 'f' :
@@ -98,13 +109,33 @@ void TecladoAmpliado (int tecla, int x, int y)
 	switch (tecla)
 	{
 		case GLUT_KEY_UP : // Pulsacion cursor arriba del teclado ampliado
+			if (modo == WALK) {
+				ox = ix;
+				oz = iz;
+			}
+			else if (modo == EXAMINAR) {
+				beta = beta + 1.50;
+				if (beta > 360.0) beta = beta - 360.0;
+			}
+
+			/* Subir y bajar camara
 			beta = beta + 1.50;
-			if (beta > 360.0) beta = beta - 360.0;
+			if (beta > 360.0) beta = beta - 360.0; */
 			break;
 
 		case GLUT_KEY_DOWN : // Pulsacion cursor abajo del teclado ampliado
+			if (modo == WALK) {
+				ox = ox - (ix - ox);
+				oz = oz - (iz - oz);
+			}
+			else if (modo == EXAMINAR) {
+				beta = beta - 1.50;
+				if (beta < 0.0) beta = beta + 360.0;
+			}
+
+			/* Subir y bajar camara
 			beta = beta - 1.50;
-			if (beta < 0.0) beta = beta + 360.0;
+			if (beta < 0.0) beta = beta + 360.0; */
 			break;
 
 		case GLUT_KEY_RIGHT : // Pulsacion cursor derecha del teclado ampliado
@@ -112,11 +143,17 @@ void TecladoAmpliado (int tecla, int x, int y)
 			if (alfa > 360.0) alfa = alfa - 360.0;
 			break;
 
-		case GLUT_KEY_LEFT : // Pulsacion cursor izquierda del teclado ampliado
+		case GLUT_KEY_LEFT: // Pulsacion cursor izquierda del teclado ampliado
 			alfa = alfa - 15.0;
 			if (alfa < 0.0) alfa = alfa + 360.0;
 			break;
 	}
+
+	if (modo == WALK) {
+		ix = ox + PASO*sin(grad2rad(alfa));
+		iz = oz - PASO*cos(grad2rad(alfa));
+	}
+
 	glutPostRedisplay ();
 }
 
@@ -146,10 +183,15 @@ void Dibuja (void)
     /* Transformacion de la camara */
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-	glRotated (beta, 1.0,0.0,0.0);
-    glRotated (alfa, 0.0,1.0,0.0);
+	
+	if (modo == EXAMINAR) {
+		glRotated(beta, 1.0, 0.0, 0.0);
+		glRotated (alfa, 0.0,1.0,0.0);
+	}
+	//glRotated (beta, 1.0,0.0,0.0);
+    //glRotated (alfa, 0.0,1.0,0.0);
 
-	//gluLookAt (ox, oy, oz, ix, iy, iz, 0, 1, 0);
+	gluLookAt (ox, oy, oz, ix, iy, iz, 0, 1, 0);
 
 	/* Llamadas a las display lists */
 	DibujaEscena ();

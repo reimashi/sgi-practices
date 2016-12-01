@@ -50,17 +50,17 @@ void CreaArco (void)
 		glPushMatrix();
 			glTranslatef(0.75,0.0,0.0);
 			glScalef(0.5,2.0,0.5);
-			igWireCube();
+			igWireCubo();
 		glPopMatrix();
 		glPushMatrix();
 			glTranslatef(-0.75,0.0,0.0);
 			glScalef(0.5,2.0,0.5);
-			igWireCube();
+			igWireCubo();
 		glPopMatrix();
 		glPushMatrix();
 			glTranslatef(0.0,0.75,0.0);
 			glScalef(2.0,0.5,0.5);
-			igWireCube();
+			igWireCubo();
 		glPopMatrix();
 		glEndList ();
 	}

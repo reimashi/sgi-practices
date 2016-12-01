@@ -15,24 +15,15 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="examinar.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="glig.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="modelado.c">
+    <ClCompile Include="Main.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="examinar.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="glig.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="modelado.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
